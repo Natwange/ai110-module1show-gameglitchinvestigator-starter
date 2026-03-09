@@ -26,12 +26,21 @@ It wrote the code, ran away, and now the game is unplayable.
 ## 📝 Document Your Experience
 
 - [ ] Describe the game's purpose.
+   It's a number guessing game where the app picks a secret number and you have a limited number of attempts to guess it. After each guess it tells you if you went too high or too low, and your final score is based on how few attempts it took you to find the correct number.
 - [ ] Detail which bugs you found.
+   -Backwards hints — when a guess was too high the game said "Go HIGHER" and vice versa. Fixed by swapping the return messages in check_guess.
+   -New Game button didn't restart — clicking New Game after winning or losing kept showing "Game over" / "You already won" because status was never reset. 
+   -Wrong difficulty ranges — Normal had range 1–100 (harder than Hard's 1–50).
+   -Even-attempt string conversion — at every even-numbered attempt, the secret was cast to a string with str(st.session_state.secret), making a correct integer guess never match, and causing a TypeError crash on non-equal guesses.
 - [ ] Explain what fixes you applied.
+   -Fixed by swapping the return messages in check_guess
+   -Fixed by adding st.session_state.status = "playing" to the new game handler.
+   -Fixed by correcting get_range_for_difficulty to Easy=1–20, Normal=1–50, Hard=1–100.
+   -Fixed by removing the even/odd branch entirely.
 
 ## 📸 Demo
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+- [ ![alt text](image.png)] [Insert a screenshot of your fixed, winning game here]
 
 ## 🚀 Stretch Features
 
